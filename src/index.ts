@@ -1,6 +1,5 @@
 require('dotenv').config();
 import express from 'express';
-import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { mySQLConnection } from './utils/connect';
 import MiddleWare from './middleware';
@@ -10,18 +9,16 @@ import { router as TweetsRouter } from './routes/tweets';
 import { router as ReplyRouter } from './routes/replies';
 import { router as LikesRouter } from './routes/likes';
 import { router as AuthRouter } from './routes/auth';
+import ContentSecurityPr from './utils/ContentSecurityPR';
 // import SessionModel from './utils/sessions';
 
 const main = async () => {
   const server = express();
   
   server.use(express.json());
+  ContentSecurityPr();
   server.use(cookieParser());
-  server.use(cors({ 
-    credentials: true,
-    origin: 'http://localhost:3000'
-   }));
-  
+
   const connection = await mySQLConnection();
   await connection.connect();
 

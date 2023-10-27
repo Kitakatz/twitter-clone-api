@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
-// import Validate from '../../utils/validate';
 import UserModel from '../../utils/users';
 import bcrypt from 'bcryptjs'
 import createCookie from '../../utils/createCookie';
 import SessionModel from '../../utils/sessions';
 import jwt from 'jsonwebtoken';
 import { DateTime } from 'luxon';
-import createFingerprint from 'src/utils/createFingerprint';
+import createFingerprint from '../../utils/createFingerprint';
 
 interface DataToSign {
   id: string;
