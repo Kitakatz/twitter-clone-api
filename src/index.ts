@@ -10,13 +10,15 @@ import { router as ReplyRouter } from './routes/replies';
 import { router as LikesRouter } from './routes/likes';
 import { router as AuthRouter } from './routes/auth';
 import ContentSecurityPr from './utils/ContentSecurityPR';
+import Cors from './utils/cors';
 // import SessionModel from './utils/sessions';
 
 const main = async () => {
   const server = express();
   
   server.use(express.json());
-  ContentSecurityPr();
+  ContentSecurityPr(server);
+  Cors(server);
   server.use(cookieParser());
 
   const connection = await mySQLConnection();
@@ -28,10 +30,10 @@ const main = async () => {
   server.use("/api/likes", MiddleWare.verifyToken, LikesRouter);
   server.use("/api/auth", AuthRouter);
 
-  server.get("/api/event-test", async (request, response) => {
-    console.log('headers: ', request.headers);
-    response.send('success!');
-  });
+  // server.get("/api/event-test", async (request, response) => {
+  //   console.log('headers: ', request.headers);
+  //   response.send('success!');
+  // });
 
   server.listen(3001, () => console.log('Server has started on port 3001'));
 };
