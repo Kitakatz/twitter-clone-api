@@ -6,6 +6,7 @@ import SessionModel from '../../utils/sessions';
 import jwt from 'jsonwebtoken';
 import { DateTime } from 'luxon';
 import createFingerprint from '../../utils/createFingerprint';
+// import Validate from '../../utils/validate';
 
 interface DataToSign {
   id: string;
@@ -17,6 +18,7 @@ const login = async (request: Request, response: Response) => {
   try {
     const user = {...request.body};
 
+    //fix validate function!
     // Validate().validateUser(user);
 
     const model = new UserModel();
@@ -41,8 +43,9 @@ const login = async (request: Request, response: Response) => {
 
     const JWT_SECRET = process.env.JWT_SECRET ? process.env.JWT_SECRET:'';
 
-    const accessToken = jwt.sign(dataToSign, JWT_SECRET, { expiresIn:'20s' });
-    const refreshToken = jwt.sign(dataToSign, JWT_SECRET, { expiresIn:'7d'});
+    //revert expired to 20s or dont commit this
+    const accessToken = jwt.sign(dataToSign, JWT_SECRET, { expiresIn:'30m' });
+    const refreshToken = jwt.sign(dataToSign, JWT_SECRET, { expiresIn:'7d' });
 
     createCookie(response, User, Session);
     

@@ -9,8 +9,8 @@ class SessionModel {
     const id: string = uuid();
     const userID: string = ID;
     const time = DateTime.now(); 
-    const schedule = time.toUTC().plus({ minutes:1 }).toString();
-    const timeToLive: string = schedule;
+    const schedule = time.plus({ days:7 }).toISO();
+    const timeToLive = schedule;
     
     await connection.query('INSERT INTO session (id, userID, timeToLive) VALUES(?, ?, ?)', [id, userID, timeToLive]);
     
@@ -18,7 +18,6 @@ class SessionModel {
     // const eventName: string = id.replaceAll('-','');
  
     // await connection.query(`CREATE EVENT IF NOT EXISTS ${eventName} ON SCHEDULE AT DATE_ADD( NOW(), INTERVAL 1 MINUTE ) DO DELETE FROM session WHERE id = ?`, [id]);
-
     return {
       id: id
     };
@@ -30,6 +29,12 @@ class SessionModel {
     const [session] = await connection.query<any>(`SELECT * FROM session WHERE id = ?`, [ID]);
 
     return session[0];
+  };
+
+  async delete(ID: string): Promise<any> {
+    const connection = await mySQLConnection();
+
+    await connection.query<any>(`DELETE FROM session WHERE id = ?`, [ID]);
   };
 };
 

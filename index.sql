@@ -74,6 +74,11 @@ CREATE TABLE users (
   password VARCHAR(225)
 );
 
+CREATE TABLE session (
+  id VARCHAR(225) NOT NULL PRIMARY KEY,
+  userID VARCHAR(50),
+  timeToLive VARCHAR(50)
+);
 
 -- User ID (incrementing bigint)
 -- User Common Name (to be displayed on the site)
