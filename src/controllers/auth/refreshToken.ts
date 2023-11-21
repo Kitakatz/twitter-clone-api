@@ -12,10 +12,10 @@ interface DataToSign {
 
 const refreshToken = async (request: Request, response: Response) => {
   try {
-    const body = request.body;
     //grab the sessionID off the token from the cookie
     const parsedCookie = JSON.parse(request.cookies.auth);
     const decodedToken = jwt.decode(parsedCookie.token);
+    console.log('decodedToken: ', decodedToken);
     if (!decodedToken) return;
     
     //check refresh token with that in database
@@ -39,7 +39,8 @@ const refreshToken = async (request: Request, response: Response) => {
     const fingerprint = createFingerprint(request);
     
     const dataToSign: DataToSign = {
-      id: body.user.id,
+      // @ts-ignore
+      id: decodedToken.id,
       createdAt: timeAsUTC,
       fingerprint: fingerprint
     };

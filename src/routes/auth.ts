@@ -9,7 +9,7 @@ const router = Express.Router();
 router.post("/register", register);
 router.post("/login", login);
 router.post("/verify", verify);
-router.post("/refresh-token", refreshToken);
+router.post("/refreshToken", refreshToken);
 
 export {
   router
