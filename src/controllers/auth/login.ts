@@ -28,24 +28,21 @@ const login = async (request: Request, response: Response) => {
     
     if ( !await bcrypt.compare(user.password, User.password) ) throw new Error('Invalid password.');
 
-    const sessionModel = new SessionModel();
-    const Session = await sessionModel.create(User.id);
-
     const timeAsUTC = DateTime.now().toUTC();
-    
     const fingerprint = createFingerprint(request);
-
     const dataToSign: DataToSign = {
       id: user.id,
       createdAt: timeAsUTC,
       fingerprint: fingerprint
     };
-
-    const JWT_SECRET = process.env.JWT_SECRET ? process.env.JWT_SECRET:'';
-
     //revert expired to 20s or dont commit this
+    const JWT_SECRET = process.env.JWT_SECRET ? process.env.JWT_SECRET:'';
     const accessToken = jwt.sign(dataToSign, JWT_SECRET, { expiresIn:'30m' });
     const refreshToken = jwt.sign(dataToSign, JWT_SECRET, { expiresIn:'7d' });
+
+    const sessionModel = new SessionModel();
+    console.log('REEEEEEFRESH TOKEN: ', refreshToken);
+    const Session = await sessionModel.create(User.id, refreshToken);
 
     createCookie(response, User, Session);
     

@@ -24,8 +24,11 @@ const register = async (request: Request, response: Response) => {
 
     await model.createUser(user, hashedPassword);
 
+
+    //conundrum - do we want to create a session here or only when logging in
+    // if we only create a session when loggin we can just redirect from register
     const sessionModel = new SessionModel();
-    await sessionModel.create(user.id);
+    // await sessionModel.create(user.id);
 
     createCookie(response, User, sessionModel);
     

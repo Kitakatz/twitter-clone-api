@@ -77,7 +77,8 @@ CREATE TABLE users (
 CREATE TABLE session (
   id VARCHAR(225) NOT NULL PRIMARY KEY,
   userID VARCHAR(50),
-  timeToLive VARCHAR(50)
+  timeToLive VARCHAR(50),
+  refreshToken VARCHAR(300)
 );
 
 -- User ID (incrementing bigint)

@@ -3,7 +3,7 @@ import { mySQLConnection } from '../connect';
 import { v4 as uuid } from 'uuid';
 
 class SessionModel {
-  async create(ID: string): Promise<any> {
+  async create(ID: string, Token: string): Promise<any> {
     const connection = await mySQLConnection();
 
     const id: string = uuid();
@@ -11,8 +11,9 @@ class SessionModel {
     const time = DateTime.now(); 
     const schedule = time.plus({ days:7 }).toISO();
     const timeToLive = schedule;
+    const refreshToken = Token;
     
-    await connection.query('INSERT INTO session (id, userID, timeToLive) VALUES(?, ?, ?)', [id, userID, timeToLive]);
+    await connection.query('INSERT INTO session (id, userID, timeToLive, refreshToken) VALUES(?, ?, ?, ?)', [id, userID, timeToLive, refreshToken]);
     
     //@ts-ignore
     // const eventName: string = id.replaceAll('-','');
