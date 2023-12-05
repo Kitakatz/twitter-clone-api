@@ -5,10 +5,6 @@ import { Request } from 'express';
 
 const fetchTweets = async (_: Request, response: FetchTweetsResponse) => {
   try {
-    //review the whole path of the cookie 
-    //follow it through its routes
-    //checking time access token was created
-
     const model = new TweetModel();
     const tweets: Tweet[] = await model.get();
 

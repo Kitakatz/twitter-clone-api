@@ -6,9 +6,10 @@ import TweetModel from '../../utils/tweets';
 const addTweet = async (request: AddTweetRequest, response: AddTweetResponse) => {
   try {
     const body: Tweet = request.body;
+    console.log('request.body:  ', request.body);
     const model = new TweetModel();
 
-    await model.create( body.author, body.tweet, body.likes );
+    await model.create( body.id, body.author, body.tweet, body.likes );
 
     response.send("This endpoint is working.");
   } catch (error) {

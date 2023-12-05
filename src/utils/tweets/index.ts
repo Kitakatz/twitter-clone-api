@@ -32,10 +32,13 @@ class TweetModel {
     };
   };
 
-  async create(author: string, tweet: string, likes: number): Promise<void> {
+  async create(id: string, author: string, tweet: string, likes: number): Promise<void> {
     const connection = await mySQLConnection();
     
-    await connection.query<Tweet[] & RowDataPacket[]>(`INSERT INTO tweet (author, tweet, likes) VALUES( ?, ?, ? )`, [ author, tweet, likes ]);
+    await connection.query<Tweet[] & RowDataPacket[]>(
+      `INSERT INTO tweet (id, author, tweet, likes) VALUES( ?, ?, ?, ? )`, 
+      [ id, author, tweet, likes ]
+    );
   };
 
   async getLikes(id: string): Promise<number> {
