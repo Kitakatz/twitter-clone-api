@@ -15,7 +15,6 @@ const syncRefreshTokens = async (request: Request, response: Response) => {
     //grab the sessionID off the token from the cookie
     const parsedCookie = JSON.parse(request.cookies.auth);
     const decodedToken = jwt.decode(parsedCookie.token);
-    console.log('decodedToken: ', decodedToken);
     if (!decodedToken) return;
     
     //check refresh token with that in database

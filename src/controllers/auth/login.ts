@@ -41,7 +41,6 @@ const login = async (request: Request, response: Response) => {
     const refreshToken = jwt.sign(dataToSign, JWT_SECRET, { expiresIn:'7d' });
 
     const sessionModel = new SessionModel();
-    console.log('REEEEEEFRESH TOKEN: ', refreshToken);
     const Session = await sessionModel.create(User.id, refreshToken);
 
     createCookie(response, User, Session);

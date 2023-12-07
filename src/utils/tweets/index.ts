@@ -46,13 +46,13 @@ class TweetModel {
 
     const [tweet] = await connection.query<Tweet[] & RowDataPacket[]>(`SELECT * FROM tweet WHERE tweet.id = ?`, [id]);
 
-    console.log('response: ', tweet[0]);
-
     return tweet[0].likes;
   };
 
   async setLikes(id: string, likes: number): Promise<void> {
     const connection = await mySQLConnection();
+    console.log('checking id: ', id);
+    console.log('likes: ', likes);
 
     await connection.query(`UPDATE tweet SET likes = ? WHERE tweet.id = ?`, [likes, id]);
   };

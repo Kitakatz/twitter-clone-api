@@ -28,11 +28,6 @@ const main = async () => {
   server.use("/api/likes", MiddleWare.verifyToken, LikesRouter);
   server.use("/api/auth", AuthRouter);
 
-  server.get("/api/event-test", async (request, response) => {
-    console.log('headers: ', request.headers);
-    response.send('success!');
-  });
-
   server.listen(3001, () => console.log('Server has started on port 3001'));
 };
 

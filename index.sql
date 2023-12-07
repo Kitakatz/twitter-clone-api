@@ -54,6 +54,15 @@ CREATE TABLE tweet (
   likes INT
 );
 
+CREATE TABLE tweet (
+  id VARCHAR(225) NOT NULL PRIMARY KEY,
+  author VARCHAR(20),
+  tweet VARCHAR(225),
+  likes INT,
+  mediaUrl VARCHAR(225),
+  mediaType VARCHAR(20),
+);
+
 CREATE TABLE reply (
   id VARCHAR(225) NOT NULL PRIMARY KEY,
   author VARCHAR(20),
