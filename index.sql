@@ -59,8 +59,8 @@ CREATE TABLE tweet (
   author VARCHAR(20),
   tweet VARCHAR(225),
   likes INT,
-  mediaUrl VARCHAR(225),
-  mediaType VARCHAR(20),
+  mediaURL VARCHAR(225),
+  mediaType VARCHAR(20)
 );
 
 CREATE TABLE reply (

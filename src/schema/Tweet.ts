@@ -4,6 +4,8 @@ export interface Tweet {
   tweet: string;
   replies: Reply[];
   likes: number;
+  mediaURL: string;
+  mediaType: string;
 };
 
 export interface Reply {

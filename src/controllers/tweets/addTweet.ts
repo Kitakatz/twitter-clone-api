@@ -8,7 +8,7 @@ const addTweet = async (request: AddTweetRequest, response: AddTweetResponse) =>
     const body: Tweet = request.body;
     const model = new TweetModel();
 
-    await model.create( body.id, body.author, body.tweet, body.likes );
+    await model.create( body.id, body.author, body.tweet, body.likes, body.mediaURL, body.mediaType );
 
     response.send("This endpoint is working.");
   } catch (error) {
